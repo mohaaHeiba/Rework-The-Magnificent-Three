@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:the_magnificent_three/presentation/navigationBar/side_navigations.dart';
-import 'package:the_magnificent_three/presentation/pages/home/home_page.dart';
 import 'package:the_magnificent_three/presentation/pages/welcom_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
       //dark mode
       darkTheme: ThemeData(brightness: Brightness.dark),
 
+      themeMode: ThemeMode.dark,
       //
       home: isDesktopOrWeb ? const WelcomPage() : const SideNavigations(),
     );
