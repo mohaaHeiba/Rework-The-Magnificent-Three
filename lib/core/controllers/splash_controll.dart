@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
-import 'package:the_magnificent_three/feature/signup/presentation/page/insert_page.dart';
+import 'package:the_magnificent_three/features/signup/presentation/page/sign_up_page.dart';
 
 class SplashControll extends GetxController {
   final opacity = 0.0.obs;
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     _loadSplash();
   }
@@ -16,7 +15,7 @@ class SplashControll extends GetxController {
       opacity.value = 1.0;
     });
     Future.delayed(const Duration(seconds: 3), () {
-      Get.off(() => InertPage(), transition: Transition.fadeIn);
+      Get.off(() => SignUpPage(), transition: Transition.fadeIn);
     });
   }
 }

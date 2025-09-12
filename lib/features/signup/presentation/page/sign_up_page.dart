@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:the_magnificent_three/feature/signup/presentation/controller/sign_up_controll.dart';
-import 'package:the_magnificent_three/feature/signup/presentation/widgets/build_dropdown_field.dart';
+import 'package:the_magnificent_three/features/signup/presentation/controller/sign_up_controll.dart';
+import 'package:the_magnificent_three/features/signup/presentation/widgets/build_dropdown_field.dart';
 
-class InertPage extends StatelessWidget {
-  const InertPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {

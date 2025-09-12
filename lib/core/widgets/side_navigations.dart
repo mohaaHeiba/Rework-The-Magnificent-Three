@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:the_magnificent_three/core/controllers/navigation_controll.dart';
-import 'package:the_magnificent_three/feature/signup/presentation/widgets/build_navItem.dart';
+import 'package:the_magnificent_three/features/signup/presentation/widgets/build_navItem.dart';
 
 class SideNavigations extends StatelessWidget {
   const SideNavigations({super.key});
