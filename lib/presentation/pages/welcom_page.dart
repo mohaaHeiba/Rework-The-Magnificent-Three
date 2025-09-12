@@ -17,7 +17,11 @@ class WelcomPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.assistant, size: 100),
+                Icon(
+                  Icons.assistant,
+                  size: 100,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
                 const SizedBox(height: 20),
                 Text(
                   'Brain tumor classification',

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:the_magnificent_three/presentation/navigationBar/side_navigations.dart';
+import 'package:the_magnificent_three/presentation/pages/insert_page.dart';
 
 class WelcomeCaontroll extends GetxController {
   final opacity = 0.0.obs;
@@ -16,7 +17,7 @@ class WelcomeCaontroll extends GetxController {
       opacity.value = 1.0;
     });
     Future.delayed(const Duration(seconds: 3), () {
-      Get.off(() => SideNavigations(), transition: Transition.fadeIn);
+      Get.off(() => InertPage(), transition: Transition.fadeIn);
     });
   }
 }

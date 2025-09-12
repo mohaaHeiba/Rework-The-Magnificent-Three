@@ -25,14 +25,16 @@ class SideNavigations extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    const Color(0xFF2E7D9A),
-                    const Color(0xFF1E5A73),
-                    const Color(0xFF0F3A4A),
+                    Theme.of(context).colorScheme.shadow,
+                    Theme.of(context).colorScheme.scrim,
+                    Theme.of(context).colorScheme.inverseSurface,
                   ],
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.15),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withOpacity(0.15),
                     blurRadius: 8,
                     offset: const Offset(2, 0),
                   ),
@@ -53,11 +55,11 @@ class SideNavigations extends StatelessWidget {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.primary,
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Colors.black.withOpacity(0.5),
                                 blurRadius: 4,
                                 offset: const Offset(0, 2),
                               ),
@@ -72,20 +74,23 @@ class SideNavigations extends StatelessWidget {
                         const SizedBox(height: 12),
                         // App Title
                         if (!controller.isCollapsed.value) ...[
-                          const Text(
+                          Text(
                             "The Magnificent Three",
                             style: TextStyle(
-                              color: Colors.white,
+                              // color: Colors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               overflow: TextOverflow.ellipsis,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             "Brain Tumor Detection",
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onPrimary.withOpacity(0.8),
                               fontSize: 12,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -99,7 +104,9 @@ class SideNavigations extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     height: 1,
-                    color: Colors.white.withOpacity(0.2),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withOpacity(0.2),
                   ),
 
                   // Navigation Items
@@ -114,6 +121,7 @@ class SideNavigations extends StatelessWidget {
                             isSelected: controller.index.value == 0,
                             isCollapsed: controller.isCollapsed.value,
                             onTap: () => controller.index.value = 0,
+                            context: context,
                           ),
                           buildNavItem(
                             icon: Icons.upload_file_rounded,
@@ -121,6 +129,7 @@ class SideNavigations extends StatelessWidget {
                             isSelected: controller.index.value == 1,
                             isCollapsed: controller.isCollapsed.value,
                             onTap: () => controller.index.value = 1,
+                            context: context,
                           ),
 
                           buildNavItem(
@@ -129,6 +138,7 @@ class SideNavigations extends StatelessWidget {
                             isSelected: controller.index.value == 2,
                             isCollapsed: controller.isCollapsed.value,
                             onTap: () => controller.index.value = 2,
+                            context: context,
                           ),
                         ],
                       ),
@@ -137,13 +147,15 @@ class SideNavigations extends StatelessWidget {
 
                   // Bottom Section
                   Container(
-                    padding: const EdgeInsets.all(1),
+                    padding: const EdgeInsets.all(0),
                     child: Column(
                       children: [
                         // Divider
                         Container(
                           height: 1,
-                          color: Colors.white.withOpacity(0.2),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.primary.withOpacity(0.2),
                         ),
                         const SizedBox(height: 16),
 
@@ -154,6 +166,7 @@ class SideNavigations extends StatelessWidget {
                           isSelected: controller.index.value == 3,
                           isCollapsed: controller.isCollapsed.value,
                           onTap: () => controller.index.value = 3,
+                          context: context,
                         ),
 
                         const SizedBox(height: 12),
@@ -172,14 +185,16 @@ class SideNavigations extends StatelessWidget {
                                   vertical: 12,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.1),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Icon(
                                   controller.isCollapsed.value
                                       ? Icons.chevron_right_rounded
                                       : Icons.chevron_left_rounded,
-                                  color: Colors.white,
+                                  // color: Theme.of(context).colorScheme.primary,
                                   size: 20,
                                 ),
                               ),

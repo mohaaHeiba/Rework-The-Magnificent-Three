@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:the_magnificent_three/presentation/navigationBar/side_navigations.dart';
+import 'package:the_magnificent_three/presentation/pages/insert_page.dart';
 import 'package:the_magnificent_three/presentation/pages/welcom_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -20,14 +20,39 @@ class MyApp extends StatelessWidget {
       //theme
 
       //light mode
-      theme: ThemeData(brightness: Brightness.light),
+      theme: ThemeData(
+        colorScheme: ColorScheme.light(
+          brightness: Brightness.dark,
+          primary: Colors.white,
+          onPrimary: Colors.black,
+
+          //gredinat
+          shadow: const Color(0xFF2E7D9A),
+          scrim: const Color(0xFF1E5A73),
+          inverseSurface: const Color(0xFF0F3A4A),
+          //
+          background: Colors.white,
+        ),
+      ),
 
       //dark mode
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.dark(
+          brightness: Brightness.dark,
+          primary: Colors.black,
+          onPrimary: Colors.white,
+          //gredinat
+          shadow: Colors.grey[800],
+          scrim: Colors.grey[900],
+          inverseSurface: Colors.black,
+          //
+          background: Colors.grey[900],
+        ),
+      ),
 
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       //
-      home: isDesktopOrWeb ? const WelcomPage() : const SideNavigations(),
+      home: isDesktopOrWeb ? const InertPage() : const SideNavigations(),
     );
   }
 }

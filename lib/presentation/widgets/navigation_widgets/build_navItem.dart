@@ -6,6 +6,7 @@ Widget buildNavItem({
   required bool isSelected,
   required bool isCollapsed,
   required VoidCallback onTap,
+  required BuildContext context,
 }) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
