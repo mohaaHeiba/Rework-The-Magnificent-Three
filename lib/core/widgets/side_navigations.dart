@@ -81,7 +81,7 @@ class SideNavigations extends StatelessWidget {
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               overflow: TextOverflow.ellipsis,
-                              color: Theme.of(context).colorScheme.onPrimary,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -90,7 +90,7 @@ class SideNavigations extends StatelessWidget {
                             style: TextStyle(
                               color: Theme.of(
                                 context,
-                              ).colorScheme.onPrimary.withOpacity(0.8),
+                              ).colorScheme.primary.withOpacity(0.8),
                               fontSize: 12,
                             ),
                             overflow: TextOverflow.ellipsis,
