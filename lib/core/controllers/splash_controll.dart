@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:the_magnificent_three/presentation/navigationBar/side_navigations.dart';
-import 'package:the_magnificent_three/presentation/pages/insert_page.dart';
+import 'package:the_magnificent_three/feature/signup/presentation/page/insert_page.dart';
 
-class WelcomeCaontroll extends GetxController {
+class SplashControll extends GetxController {
   final opacity = 0.0.obs;
 
   @override

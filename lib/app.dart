@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:the_magnificent_three/presentation/navigationBar/side_navigations.dart';
-import 'package:the_magnificent_three/presentation/pages/insert_page.dart';
-import 'package:the_magnificent_three/presentation/pages/welcom_page.dart';
+import 'package:the_magnificent_three/core/widgets/side_navigations.dart';
+import 'package:the_magnificent_three/core/widgets/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -50,9 +49,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       //
-      home: isDesktopOrWeb ? const InertPage() : const SideNavigations(),
+      home: isDesktopOrWeb ? const SplashScreen() : const SideNavigations(),
     );
   }
 }

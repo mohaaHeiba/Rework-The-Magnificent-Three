@@ -6,16 +6,17 @@ Widget buildDropdownField({
   required List<String> items,
   required Function(String?) onChanged,
   required IconData icon,
+  required BuildContext context,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: Color(0xFF2D3748),
+          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
         ),
       ),
       const SizedBox(height: 8),
@@ -40,7 +41,7 @@ Widget buildDropdownField({
             borderSide: const BorderSide(color: Color(0xFF2E7D9A), width: 2),
           ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Theme.of(context).colorScheme.background,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 16,
@@ -51,13 +52,16 @@ Widget buildDropdownField({
   );
 }
 
-Widget buildFeatureItem(String emoji, String text) {
+Widget buildFeatureItem(String emoji, String text, BuildContext context) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.1),
+      color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
       borderRadius: BorderRadius.circular(25),
-      border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+      border: Border.all(
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+        width: 1,
+      ),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -66,8 +70,8 @@ Widget buildFeatureItem(String emoji, String text) {
         const SizedBox(width: 12),
         Text(
           text,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
             fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
@@ -91,40 +95,47 @@ Widget buildTextFormField({
     children: [
       Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: Color(0xFF2D3748),
+          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
         ),
       ),
       const SizedBox(height: 8),
-      TextFormField(
-        controller: controller,
-        validator: validator,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
-          ),
-          prefixIcon: Icon(icon, color: const Color(0xFF2E7D9A)),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.grey[300]!),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: Colors.grey[300]!),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(0xFF2E7D9A), width: 2),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
+      Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 12),
+          ],
+        ),
+        child: TextFormField(
+          controller: controller,
+          validator: validator,
+          keyboardType: keyboardType,
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
+            ),
+            prefixIcon: Icon(icon, color: const Color(0xFF2E7D9A)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Colors.grey[300]!),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Colors.grey[300]!),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF2E7D9A), width: 2),
+            ),
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.background,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
           ),
         ),
       ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:the_magnificent_three/presentation/controllers/insert_data.dart';
-import 'package:the_magnificent_three/presentation/widgets/welcome/build_dropdown_field.dart';
+import 'package:the_magnificent_three/feature/signup/presentation/controller/sign_up_controll.dart';
+import 'package:the_magnificent_three/feature/signup/presentation/widgets/build_dropdown_field.dart';
 
 class InertPage extends StatelessWidget {
   const InertPage({super.key});
@@ -11,7 +10,7 @@ class InertPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<InsertDataController>();
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Row(
         children: [
           // Left Side - Visual/Image Section
@@ -56,29 +55,33 @@ class InertPage extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(24),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.2),
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Colors.white.withOpacity(0.3),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withOpacity(0.3),
                                   width: 2,
                                 ),
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.psychology_rounded,
                                 size: 80,
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
 
                             const SizedBox(height: 32),
 
                             // Title
-                            const Text(
+                            Text(
                               "Brain Tumor Analysis",
                               style: TextStyle(
                                 fontSize: 42,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.primary,
                                 letterSpacing: 1.2,
                               ),
                               textAlign: TextAlign.center,
@@ -91,7 +94,9 @@ class InertPage extends StatelessWidget {
                               "Advanced AI-powered medical imaging analysis for healthcare professionals",
                               style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.white.withOpacity(0.9),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.9),
                                 height: 1.5,
                               ),
                               textAlign: TextAlign.center,
@@ -102,11 +107,23 @@ class InertPage extends StatelessWidget {
                             // Features List
                             Column(
                               children: [
-                                buildFeatureItem("🧠", "AI-Powered Analysis"),
+                                buildFeatureItem(
+                                  "🧠",
+                                  "AI-Powered Analysis",
+                                  context,
+                                ),
                                 const SizedBox(height: 16),
-                                buildFeatureItem("📊", "Detailed Reports"),
+                                buildFeatureItem(
+                                  "📊",
+                                  "Detailed Reports",
+                                  context,
+                                ),
                                 const SizedBox(height: 16),
-                                buildFeatureItem("⚡", "Fast Processing"),
+                                buildFeatureItem(
+                                  "⚡",
+                                  "Fast Processing",
+                                  context,
+                                ),
                               ],
                             ),
                           ],
@@ -123,7 +140,7 @@ class InertPage extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Container(
-              color: const Color(0xFFF8F9FA),
+              color: Theme.of(context).colorScheme.background,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(
                   top: 48.0,
@@ -272,6 +289,7 @@ class InertPage extends StatelessWidget {
                                   (() =>
                                       controller.selectedRole.value = value!),
                               icon: Icons.work_rounded,
+                              context: context,
                             ),
                           ),
 

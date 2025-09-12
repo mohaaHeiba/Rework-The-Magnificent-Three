@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:the_magnificent_three/presentation/navigationBar/side_navigations.dart';
+import 'package:the_magnificent_three/core/widgets/side_navigations.dart';
 
 class InsertDataController extends GetxController {
   final formKey = GlobalKey<FormState>();

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:the_magnificent_three/presentation/controllers/welcome_caontroll.dart';
+import 'package:the_magnificent_three/core/controllers/splash_controll.dart';
 
-class WelcomPage extends StatelessWidget {
-  const WelcomPage({super.key});
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<WelcomeCaontroll>();
+    final controller = Get.find<SplashControll>();
     return Scaffold(
       body: Center(
         child: Obx(
