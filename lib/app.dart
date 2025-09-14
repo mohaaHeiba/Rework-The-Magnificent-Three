@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
           onSurface: AppColors.onSurfaceLight,
           background: AppColors.backgroundLight,
           onBackground: AppColors.onBackgroundLight,
+          primaryContainer: AppColors.containerLight,
         ),
+        extensions: const [AppColors.gradientsLight],
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -35,8 +37,11 @@ class MyApp extends StatelessWidget {
           onSurface: AppColors.onSurfaceDark,
           background: AppColors.backgroundDark,
           onBackground: AppColors.onBackgroundDark,
+          primaryContainer: AppColors.containerDark,
         ),
+        extensions: const [AppColors.gradientsDark],
       ),
+      themeMode: ThemeMode.light,
       home: AuthPage(),
     );
   }
