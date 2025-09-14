@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:the_magnificent_three/core/constants/app_constraints.dart';
 import 'package:the_magnificent_three/core/theme/app_gradients.dart';
+import 'package:the_magnificent_three/presentation/widgets/auth/build_feature_item.dart';
 
 Widget leftSideWidget(BuildContext context) {
   return Container(
@@ -62,6 +63,27 @@ Widget leftSideWidget(BuildContext context) {
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
+                    AppSpacing.h16,
+                    Text(
+                      "Advanced AI-powered medical imaging analysis for healthcare professionals",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary.withOpacity(0.8),
+                        height: 1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    AppSpacing.h48,
+
+                    buildFeatureItem("🧠", "AI-Powered Analysis"),
+                    AppSpacing.h16,
+                    buildFeatureItem("📊", "Detailed Reports"),
+                    AppSpacing.h16,
+                    buildFeatureItem("⚡", "Fast Processing"),
+                    AppSpacing.h48,
+                    AppSpacing.h48,
                   ],
                 ),
               ),

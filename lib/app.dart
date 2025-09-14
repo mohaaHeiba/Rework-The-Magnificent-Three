@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.dark(
           brightness: Brightness.dark,
           primary: AppColors.primaryDark,
-          onPrimary: AppColors.onPrimaryDark,
+          onPrimary: AppColors.onPrimaryLight,
           error: AppColors.errorDark,
           onError: AppColors.onErrorDark,
           surface: AppColors.surfaceDark,
