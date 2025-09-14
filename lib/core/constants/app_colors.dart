@@ -9,7 +9,7 @@ class AppColors {
   static const Color onErrorLight = Colors.white;
   static const Color backgroundLight = Colors.white;
   static const Color onBackgroundLight = Color(0xFF333333);
-  static const Color containerLight = Color.fromARGB(255, 189, 189, 189);
+  static const Color containerLight = Color.fromARGB(255, 224, 224, 224);
   static const Color surfaceLight = Colors.white;
   static const Color onSurfaceLight = Color(0xFF333333);
 

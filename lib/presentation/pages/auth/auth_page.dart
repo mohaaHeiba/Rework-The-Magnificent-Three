@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:the_magnificent_three/presentation/widgets/auth/left_side.dart';
-import 'package:the_magnificent_three/presentation/widgets/auth/right_side.dart';
+import 'package:the_magnificent_three/presentation/widgets/auth/left_side_widgets/left_side.dart';
+import 'package:the_magnificent_three/presentation/widgets/auth/right_side_widget/right_side.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});

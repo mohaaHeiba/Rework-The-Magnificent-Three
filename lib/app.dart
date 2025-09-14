@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         ),
         extensions: const [AppColors.gradientsDark],
       ),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       home: AuthPage(),
     );
   }
