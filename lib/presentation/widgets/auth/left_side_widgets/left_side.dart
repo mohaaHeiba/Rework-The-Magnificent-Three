@@ -87,7 +87,6 @@ Widget leftSideWidget(BuildContext context) {
                       AppSpacing.h16,
                       buildFeatureItem("⚡", "Fast Processing"),
                       AppSpacing.h48,
-                      AppSpacing.h48,
                     ],
                   ),
                 ),

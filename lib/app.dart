@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:the_magnificent_three/core/constants/app_colors.dart';
 import 'package:the_magnificent_three/presentation/pages/auth/auth_page.dart';
+import 'package:the_magnificent_three/presentation/pages/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -41,8 +42,8 @@ class MyApp extends StatelessWidget {
         ),
         extensions: const [AppColors.gradientsDark],
       ),
-      themeMode: ThemeMode.dark,
-      home: AuthPage(),
+      themeMode: ThemeMode.light,
+      home: SplashScreen(),
     );
   }
 }
