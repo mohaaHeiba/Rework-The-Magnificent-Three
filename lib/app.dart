@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:the_magnificent_three/core/constants/app_colors.dart';
-import 'package:the_magnificent_three/presentation/pages/auth/auth_page.dart';
 import 'package:the_magnificent_three/presentation/pages/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -20,8 +19,6 @@ class MyApp extends StatelessWidget {
           onError: AppColors.onErrorLight,
           surface: AppColors.surfaceLight,
           onSurface: AppColors.onSurfaceLight,
-          background: AppColors.backgroundLight,
-          onBackground: AppColors.onBackgroundLight,
           primaryContainer: AppColors.containerLight,
         ),
         extensions: const [AppColors.gradientsLight],
@@ -36,8 +33,6 @@ class MyApp extends StatelessWidget {
           onError: AppColors.onErrorDark,
           surface: AppColors.surfaceDark,
           onSurface: AppColors.onSurfaceDark,
-          background: AppColors.backgroundDark,
-          onBackground: AppColors.onBackgroundDark,
           primaryContainer: AppColors.containerDark,
         ),
         extensions: const [AppColors.gradientsDark],
