@@ -53,7 +53,7 @@ class SideNavigation extends StatelessWidget {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
@@ -79,7 +79,7 @@ class SideNavigation extends StatelessWidget {
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               overflow: TextOverflow.ellipsis,
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -88,7 +88,7 @@ class SideNavigation extends StatelessWidget {
                             style: TextStyle(
                               color: Theme.of(
                                 context,
-                              ).colorScheme.secondary.withOpacity(0.8),
+                              ).colorScheme.onPrimary.withOpacity(0.8),
                               fontSize: 12,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -153,7 +153,7 @@ class SideNavigation extends StatelessWidget {
                           height: 1,
                           color: Theme.of(
                             context,
-                          ).colorScheme.secondary.withOpacity(0.2),
+                          ).colorScheme.onPrimary.withOpacity(0.2),
                         ),
                         const SizedBox(height: 16),
 

@@ -1,54 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:the_magnificent_three/presentation/controllers/auth/auth_controll.dart';
+import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
+import 'package:the_magnificent_three/presentation/widgets/home/below_contaoners_widgets.dart';
+import 'package:the_magnificent_three/presentation/widgets/home/header_widget.dart';
+import 'package:the_magnificent_three/presentation/widgets/home/quickStats_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<AuthController>();
-
+    final controller = Get.find<HomeControll>();
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Obx(() {
-          final user = controller.userData.value;
+      backgroundColor: theme.colorScheme.background,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header Section
+            Obx(() => buildHeader(controller.user.value?.name, context, theme)),
+            const SizedBox(height: 32),
 
-          if (user == null) {
-            return const Text(
-              'No user data',
-              style: TextStyle(color: Colors.white),
-            );
-          }
+            // Quick Stats Cards
+            buildQuickStats(theme),
+            const SizedBox(height: 32),
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                user.name,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              Text(
-                user.email,
-                style: const TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: controller.deleteUser,
-                child: const Text("Delete"),
-              ),
-              ElevatedButton(
-                onPressed: controller.updateUser,
-                child: const Text("Update"),
-              ),
-              ElevatedButton(
-                onPressed: controller.getUser,
-                child: const Text("Get"),
-              ),
-            ],
-          );
-        }),
+            // Main Content Row
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left Column
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: [buildRecentActivity(context, theme)],
+                  ),
+                ),
+                const SizedBox(width: 24),
+
+                // Right Column
+                Expanded(
+                  flex: 1,
+                  child: Column(children: [buildSystemStatus(theme)]),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

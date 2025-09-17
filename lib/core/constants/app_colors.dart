@@ -7,11 +7,10 @@ class AppColors {
   static const Color onPrimaryLight = Colors.white;
   static const Color errorLight = Color(0xFFD32F2F);
   static const Color onErrorLight = Colors.white;
-  static const Color backgroundLight = Colors.white;
-  static const Color onBackgroundLight = Color(0xFF333333);
-  static const Color containerLight = Color.fromARGB(255, 224, 224, 224);
+  static const Color containerLight = Colors.white;
   static const Color surfaceLight = Colors.white;
   static const Color onSurfaceLight = Color(0xFF333333);
+  static const Color backGroundlight = Color.fromARGB(255, 238, 238, 238);
 
   static const AppGradients gradientsLight = AppGradients(
     primary: [Color(0xFF2E7D9A), Color(0xFF1E5A73), Color(0xFF0D3D56)],
@@ -23,15 +22,14 @@ class AppColors {
   static const Color onPrimaryDark = Colors.black;
   static const Color errorDark = Color(0xFFEF5350);
   static const Color onErrorDark = Colors.black;
-  static const Color backgroundDark = Color(0xFF212121);
-  static const Color onBackgroundDark = Color(0xFFE0E0E0);
   static const Color containerDark = Color.fromARGB(255, 66, 66, 66);
 
   static const Color surfaceDark = Color(0xFF2D2D2D);
   static const Color onSurfaceDark = Color(0xFFE0E0E0);
+  static const Color backGroundDark = Color.fromARGB(255, 33, 33, 33);
 
   static const AppGradients gradientsDark = AppGradients(
-    primary: [Colors.black, Color(0xFF212121), Color(0xFF424242)],
+    primary: [Color(0xFF424242), Color(0xFF212121), Colors.black],
     nav: [Colors.black, Colors.black, Colors.black],
   );
 }

@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
           surface: AppColors.surfaceLight,
           onSurface: AppColors.onSurfaceLight,
           primaryContainer: AppColors.containerLight,
+          onPrimaryContainer: AppColors.onErrorDark,
+          background: AppColors.backGroundlight,
         ),
         extensions: const [AppColors.gradientsLight],
       ),
@@ -34,10 +36,12 @@ class MyApp extends StatelessWidget {
           surface: AppColors.surfaceDark,
           onSurface: AppColors.onSurfaceDark,
           primaryContainer: AppColors.containerDark,
+          onPrimaryContainer: AppColors.onPrimaryLight,
+          background: AppColors.backGroundDark,
         ),
         extensions: const [AppColors.gradientsDark],
       ),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       home: SplashScreen(),
     );
   }
