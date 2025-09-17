@@ -192,7 +192,6 @@ class SideNavigation extends StatelessWidget {
                                   controller.isCollapsed.value
                                       ? Icons.chevron_right_rounded
                                       : Icons.chevron_left_rounded,
-                                  // color: Theme.of(context).colorScheme.primary,
                                   size: 20,
                                 ),
                               ),

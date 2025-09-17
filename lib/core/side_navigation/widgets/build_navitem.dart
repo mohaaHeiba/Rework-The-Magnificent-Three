@@ -18,15 +18,15 @@ Widget buildNavItem({
         onTap: () {
           if (title == "Settings") {
             showModalBottomSheet(
-              isScrollControlled: true,
               context: context,
+              isScrollControlled: true,
+
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
               ),
               builder: (_) {
-                return Container(
-                  height: MediaQuery.of(context).size.height * 0.95,
-                  padding: const EdgeInsets.all(16),
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.935,
                   child: const SettingsPage(),
                 );
               },
