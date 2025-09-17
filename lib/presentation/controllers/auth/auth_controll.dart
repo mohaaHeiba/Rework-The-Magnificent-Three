@@ -1,7 +1,6 @@
-import 'package:dartx/dartx_io.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:the_magnificent_three/controller/init_database.dart';
+import 'package:the_magnificent_three/core/controller/init_database.dart';
 import 'package:the_magnificent_three/domain/entities/auth_entity.dart';
 
 class AuthController extends GetxController {
@@ -19,6 +18,8 @@ class AuthController extends GetxController {
     'Technician',
   ];
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   late final InitDatabase _db;
   final userData = Rx<AuthEntity?>(null);
 
@@ -26,7 +27,6 @@ class AuthController extends GetxController {
   void onInit() {
     super.onInit();
     _db = Get.find<InitDatabase>();
-    getUser();
   }
 
   Future<AuthEntity?> getUser() async {
@@ -86,19 +86,12 @@ class AuthController extends GetxController {
   }
 
   Future<void> deleteUser() async {
-    try {
-      final rows = await _db.userdata.authdao.deleteAuth(
-        AuthEntity(1, name: '', email: '', pass: ''),
-      );
-
-      if (rows != null && rows > 0) {
-        print('✅ User deleted successfully');
-      } else {
-        print('⚠️ No user found to delete');
-      }
-    } catch (e, s) {
-      print('❌ Error while deleting user: $e');
-      print(s);
+    if (userData.value != null) {
+      await _db.userdata.authdao.deleteAuth(userData.value!);
+      userData.value = null;
+      print("Success");
+    } else {
+      print("Error");
     }
   }
 }

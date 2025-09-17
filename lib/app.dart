@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:the_magnificent_three/core/constants/app_colors.dart';
-import 'package:the_magnificent_three/presentation/pages/home/home_page.dart';
 import 'package:the_magnificent_three/presentation/pages/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
         extensions: const [AppColors.gradientsDark],
       ),
       themeMode: ThemeMode.light,
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }

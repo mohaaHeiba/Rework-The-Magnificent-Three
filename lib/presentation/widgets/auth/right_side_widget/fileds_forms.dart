@@ -7,6 +7,7 @@ Widget fieldsTextForm(
   bool obscure,
   BuildContext context,
   TextEditingController controll,
+  final validator,
 ) {
   final theme = Theme.of(context);
 
@@ -17,6 +18,8 @@ Widget fieldsTextForm(
       const SizedBox(height: 6),
       TextFormField(
         controller: controll,
+        validator: validator,
+
         obscureText: obscure,
         style: theme.textTheme.bodyMedium,
         decoration: InputDecoration(
@@ -40,6 +43,25 @@ Widget fieldsTextForm(
               color: theme.colorScheme.primary,
               width: 1.4,
             ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: theme.colorScheme.primary,
+              width: 1.4,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color: theme.colorScheme.primary,
+              width: 1.4,
+            ),
+          ),
+          errorStyle: TextStyle(
+            fontSize: 15,
+            color: theme.colorScheme.error,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),

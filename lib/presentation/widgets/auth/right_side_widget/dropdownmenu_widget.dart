@@ -30,8 +30,7 @@ Widget dropDownmenuWidget({
           ],
         ),
         child: DropdownMenu<String>(
-          enableFilter: false,
-          enableSearch: false,
+          width: double.infinity,
           controller: controll,
           initialSelection: roles.first,
           onSelected: (a) {
