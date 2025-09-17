@@ -15,6 +15,7 @@ class AppColors {
 
   static const AppGradients gradientsLight = AppGradients(
     primary: [Color(0xFF2E7D9A), Color(0xFF1E5A73), Color(0xFF0D3D56)],
+    nav: [Color(0xFF2E7D9A), Color(0xFF1E5A73), Color(0xFF0D3D56)],
   );
 
   //dark theme
@@ -31,5 +32,6 @@ class AppColors {
 
   static const AppGradients gradientsDark = AppGradients(
     primary: [Colors.black, Color(0xFF212121), Color(0xFF424242)],
+    nav: [Colors.black, Colors.black, Colors.black],
   );
 }

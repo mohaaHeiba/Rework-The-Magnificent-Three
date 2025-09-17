@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:the_magnificent_three/core/side_navigation/controller/side_navigation_controll.dart';
 import 'package:the_magnificent_three/core/side_navigation/widgets/build_navitem.dart';
+import 'package:the_magnificent_three/core/theme/app_gradients.dart';
 
 class SideNavigation extends StatelessWidget {
   const SideNavigation({super.key});
@@ -9,7 +10,7 @@ class SideNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SidenavigationControll>();
-
+    final theme = Theme.of(context);
     return Scaffold(
       body: Obx(
         () => Row(
@@ -24,11 +25,8 @@ class SideNavigation extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    Theme.of(context).colorScheme.background,
-                    Theme.of(context).colorScheme.shadow,
-                    Theme.of(context).colorScheme.scrim,
-                  ],
+                  colors:
+                      theme.extension<AppGradients>()?.nav ?? [Colors.amber],
                 ),
                 boxShadow: [
                   BoxShadow(
