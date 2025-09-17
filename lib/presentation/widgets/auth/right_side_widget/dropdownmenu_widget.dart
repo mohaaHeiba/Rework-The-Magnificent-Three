@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 Widget dropDownmenuWidget({
   required String title,
   required String hint,
-  required List<DropdownMenuEntry<String>> items,
-  String? value,
-  required ValueChanged<String?> onSelected,
+  required List<String> roles,
+  required final controll,
   required ThemeData theme,
 }) {
   return Column(
@@ -31,16 +30,22 @@ Widget dropDownmenuWidget({
           ],
         ),
         child: DropdownMenu<String>(
-          width: double.infinity,
-          initialSelection: value,
-          onSelected: onSelected,
+          enableFilter: false,
+          enableSearch: false,
+          controller: controll,
+          initialSelection: roles.first,
+          onSelected: (a) {
+            a = controll.text;
+          },
           hintText: hint,
           textStyle: theme.textTheme.bodyMedium,
           leadingIcon: Icon(
             Icons.work_rounded,
             color: theme.colorScheme.primary,
           ),
-          dropdownMenuEntries: items,
+          dropdownMenuEntries: [
+            for (var role in roles) DropdownMenuEntry(value: role, label: role),
+          ],
           menuStyle: MenuStyle(
             backgroundColor: MaterialStateProperty.all(
               theme.colorScheme.surface,

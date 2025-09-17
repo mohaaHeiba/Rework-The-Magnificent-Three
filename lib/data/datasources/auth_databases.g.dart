@@ -96,7 +96,7 @@ class _$UserDatabase extends UserDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `signup` (`id` INTEGER, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `phone` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `auth` (`id` INTEGER, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `pass` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -117,32 +117,32 @@ class _$AuthDao extends AuthDao {
   )   : _queryAdapter = QueryAdapter(database),
         _authEntityInsertionAdapter = InsertionAdapter(
             database,
-            'signup',
+            'auth',
             (AuthEntity item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
                   'email': item.email,
-                  'phone': item.phone
+                  'pass': item.pass
                 }),
         _authEntityUpdateAdapter = UpdateAdapter(
             database,
-            'signup',
+            'auth',
             ['id'],
             (AuthEntity item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
                   'email': item.email,
-                  'phone': item.phone
+                  'pass': item.pass
                 }),
         _authEntityDeletionAdapter = DeletionAdapter(
             database,
-            'signup',
+            'auth',
             ['id'],
             (AuthEntity item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
                   'email': item.email,
-                  'phone': item.phone
+                  'pass': item.pass
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -159,11 +159,11 @@ class _$AuthDao extends AuthDao {
 
   @override
   Future<AuthEntity?> getAuth() async {
-    return _queryAdapter.query('select*from signup',
+    return _queryAdapter.query('SELECT * FROM auth LIMIT 1',
         mapper: (Map<String, Object?> row) => AuthEntity(row['id'] as int?,
             name: row['name'] as String,
             email: row['email'] as String,
-            phone: row['phone'] as int));
+            pass: row['pass'] as String));
   }
 
   @override

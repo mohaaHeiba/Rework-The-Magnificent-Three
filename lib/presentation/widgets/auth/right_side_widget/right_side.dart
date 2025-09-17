@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:the_magnificent_three/core/constants/app_constraints.dart';
+import 'package:the_magnificent_three/presentation/controllers/auth/auth_controll.dart';
+import 'package:the_magnificent_three/presentation/pages/home/home_page.dart';
 import 'package:the_magnificent_three/presentation/widgets/auth/right_side_widget/dropdownmenu_widget.dart';
 import 'package:the_magnificent_three/presentation/widgets/auth/right_side_widget/fileds_forms.dart';
 
 Widget rightSideWidget(BuildContext context) {
   final theme = Theme.of(context);
-
-  final entries = [
-    const DropdownMenuEntry(value: 'Admin', label: 'Admin'),
-    const DropdownMenuEntry(value: 'User', label: 'User'),
-    const DropdownMenuEntry(value: 'Guest', label: 'Guest'),
-  ];
+  final controller = Get.find<AuthController>();
   return Container(
     color: theme.colorScheme.primaryContainer,
     height: Get.height,
@@ -58,6 +55,7 @@ Widget rightSideWidget(BuildContext context) {
                 Icons.person,
                 false,
                 context,
+                controller.contName,
               ),
               AppSpacing.h8,
 
@@ -67,6 +65,7 @@ Widget rightSideWidget(BuildContext context) {
                 Icons.email,
                 false,
                 context,
+                controller.contEmail,
               ),
               AppSpacing.h8,
 
@@ -76,6 +75,7 @@ Widget rightSideWidget(BuildContext context) {
                 Icons.lock,
                 true,
                 context,
+                controller.contPass,
               ),
               AppSpacing.h8,
 
@@ -83,9 +83,8 @@ Widget rightSideWidget(BuildContext context) {
                 title: 'Professional Role',
                 hint: 'Choose your role',
                 theme: theme,
-                items: entries,
-                value: null,
-                onSelected: (String? value) {},
+                roles: controller.entries,
+                controll: controller.contEntry,
               ),
               AppSpacing.h32,
 
@@ -100,7 +99,10 @@ Widget rightSideWidget(BuildContext context) {
                     backgroundColor: theme.colorScheme.primary,
                   ),
 
-                  onPressed: () {},
+                  onPressed: () async {
+                    final user = await controller.inserUser();
+                    Get.to(() => const HomePage(), arguments: user);
+                  },
                   child: Text(
                     'Sign Up',
                     style: TextStyle(fontSize: 16, color: Colors.white),

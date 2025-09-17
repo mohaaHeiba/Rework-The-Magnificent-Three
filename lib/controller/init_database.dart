@@ -23,7 +23,7 @@ class InitDatabase extends GetxController {
 
     if (File(path).existsSync()) return;
 
-    ByteData data = await rootBundle.load('assets/data/signup.db');
+    ByteData data = await rootBundle.load('assets/data/data.db');
     final bytes = data.buffer.asUint8List(
       data.offsetInBytes,
       data.lengthInBytes,

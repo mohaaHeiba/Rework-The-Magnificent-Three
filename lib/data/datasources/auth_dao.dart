@@ -12,6 +12,6 @@ abstract class AuthDao {
   @update
   Future<int?> updatetAuth(AuthEntity authentity);
 
-  @Query('select*from signup')
+  @Query('SELECT * FROM auth LIMIT 1')
   Future<AuthEntity?> getAuth();
 }

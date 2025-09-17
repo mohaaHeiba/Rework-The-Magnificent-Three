@@ -6,6 +6,7 @@ Widget fieldsTextForm(
   IconData icon,
   bool obscure,
   BuildContext context,
+  TextEditingController controll,
 ) {
   final theme = Theme.of(context);
 
@@ -15,6 +16,7 @@ Widget fieldsTextForm(
       Text(title, style: theme.textTheme.titleMedium),
       const SizedBox(height: 6),
       TextFormField(
+        controller: controll,
         obscureText: obscure,
         style: theme.textTheme.bodyMedium,
         decoration: InputDecoration(
