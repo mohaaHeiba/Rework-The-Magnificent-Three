@@ -110,7 +110,8 @@ Widget rightSideWidget(BuildContext context) {
                       if (controller.formKey.currentState!.validate()) {
                         final user = await controller.inserUser();
                         if (user != null) {
-                          Get.to(() => const HomePage(), arguments: user);
+                          controller.boxStorage.write('loginBefore', true);
+                          Get.to(() => const HomePage());
                         } else {
                           Get.snackbar('Error', 'Failed to create user');
                         }

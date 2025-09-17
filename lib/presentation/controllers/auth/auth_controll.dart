@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:the_magnificent_three/core/controller/init_database.dart';
 import 'package:the_magnificent_three/domain/entities/auth_entity.dart';
 
@@ -18,6 +19,8 @@ class AuthController extends GetxController {
     'Technician',
   ];
 
+  final boxStorage = GetStorage();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late final InitDatabase _db;
@@ -27,12 +30,14 @@ class AuthController extends GetxController {
   void onInit() {
     super.onInit();
     _db = Get.find<InitDatabase>();
+    getUser();
   }
 
   Future<AuthEntity?> getUser() async {
     final data = await _db.userdata.authdao.getAuth();
     if (data != null) {
       userData.value = data;
+
       return data;
     } else {
       return null;
@@ -86,12 +91,16 @@ class AuthController extends GetxController {
   }
 
   Future<void> deleteUser() async {
-    if (userData.value != null) {
-      await _db.userdata.authdao.deleteAuth(userData.value!);
+    try {
+      final auth =
+          userData.value ?? AuthEntity(1, name: '', email: '', pass: '');
+
+      await _db.userdata.authdao.deleteAuth(auth);
       userData.value = null;
-      print("Success");
-    } else {
-      print("Error");
+
+      print("✅ User deleted");
+    } catch (e) {
+      print("❌ Error deleting user: $e");
     }
   }
 }

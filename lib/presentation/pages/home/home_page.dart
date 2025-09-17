@@ -1,31 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:the_magnificent_three/domain/entities/auth_entity.dart';
 import 'package:the_magnificent_three/presentation/controllers/auth/auth_controll.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<AuthController>();
-    final data = controller.userData.value;
 
-    return Column(
-      spacing: 15,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(data!.name ?? 'asdasd', style: TextStyle(color: Colors.white)),
-        Text(data!.email ?? '', style: TextStyle(color: Colors.white)),
-        ElevatedButton(
-          onPressed: controller.deleteUser,
-          child: const Text("Delete"),
-        ),
-        ElevatedButton(
-          onPressed: controller.updateUser,
-          child: const Text("Update"),
-        ),
-        ElevatedButton(onPressed: controller.getUser, child: const Text("Get")),
-      ],
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Obx(() {
+          final user = controller.userData.value;
+
+          if (user == null) {
+            return const Text(
+              'No user data',
+              style: TextStyle(color: Colors.white),
+            );
+          }
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                user.name,
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              Text(
+                user.email,
+                style: const TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: controller.deleteUser,
+                child: const Text("Delete"),
+              ),
+              ElevatedButton(
+                onPressed: controller.updateUser,
+                child: const Text("Update"),
+              ),
+              ElevatedButton(
+                onPressed: controller.getUser,
+                child: const Text("Get"),
+              ),
+            ],
+          );
+        }),
+      ),
     );
   }
 }
