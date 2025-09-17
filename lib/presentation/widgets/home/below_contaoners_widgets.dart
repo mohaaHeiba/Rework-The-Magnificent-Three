@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget buildRecentActivity(BuildContext context, ThemeData theme) {
+Widget buildRecentActivity(ThemeData theme) {
   return Container(
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(

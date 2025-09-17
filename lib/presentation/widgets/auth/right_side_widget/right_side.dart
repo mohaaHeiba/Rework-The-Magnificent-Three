@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:the_magnificent_three/core/constants/app_constraints.dart';
+import 'package:the_magnificent_three/core/side_navigation/page/side_navigation.dart';
 import 'package:the_magnificent_three/core/validators/form_validators.dart';
 import 'package:the_magnificent_three/presentation/controllers/auth/auth_controll.dart';
 import 'package:the_magnificent_three/presentation/pages/home/home_page.dart';
@@ -111,7 +112,11 @@ Widget rightSideWidget(BuildContext context) {
                         final user = await controller.inserUser();
                         if (user != null) {
                           controller.boxStorage.write('loginBefore', true);
-                          Get.to(() => const HomePage());
+                          Get.to(
+                            () => const SideNavigation(),
+                            transition: Transition.fadeIn,
+                            duration: Duration(milliseconds: 800),
+                          );
                         } else {
                           Get.snackbar('Error', 'Failed to create user');
                         }

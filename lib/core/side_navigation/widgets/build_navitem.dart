@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_magnificent_three/presentation/pages/settings/settings_page.dart';
 
 Widget buildNavItem({
   required IconData icon,
@@ -17,14 +18,16 @@ Widget buildNavItem({
         onTap: () {
           if (title == "Settings") {
             showModalBottomSheet(
+              isScrollControlled: true,
               context: context,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
               ),
               builder: (_) {
                 return Container(
+                  height: MediaQuery.of(context).size.height * 0.95,
                   padding: const EdgeInsets.all(16),
-                  child: const Center(),
+                  child: const SettingsPage(),
                 );
               },
             );

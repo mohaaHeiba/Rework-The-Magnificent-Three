@@ -30,7 +30,17 @@ class AuthController extends GetxController {
   void onInit() {
     super.onInit();
     _db = Get.find<InitDatabase>();
-    getUser();
+    // deleteUser();
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    contName.dispose;
+    contEmail.dispose;
+    contPass.dispose;
+    contEntry.dispose;
+    super.onClose();
   }
 
   Future<AuthEntity?> getUser() async {

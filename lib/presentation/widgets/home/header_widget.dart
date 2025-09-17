@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_magnificent_three/core/theme/app_gradients.dart';
 
-Widget buildHeader(final name, BuildContext context, final theme) {
+Widget buildHeader(final name, final theme) {
   return Container(
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
@@ -26,7 +26,7 @@ Widget buildHeader(final name, BuildContext context, final theme) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name ?? '',
+                name,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,

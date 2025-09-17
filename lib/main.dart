@@ -16,11 +16,10 @@ Future<void> main() async {
   final init = Get.put(InitDatabase(), permanent: true);
   await init.initDatabase();
 
-  Get.put(SplashControll());
-  Get.put(SidenavigationControll());
+  Get.put(SplashControll(), permanent: true);
+  Get.put(SidenavigationControll(), permanent: true);
 
   Get.put(AuthController());
-  Get.put(HomeControll());
-
+  Get.lazyPut(() => HomeControll());
   runApp(const MyApp());
 }

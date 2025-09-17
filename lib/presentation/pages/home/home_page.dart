@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeControll>();
+
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.background,
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header Section
-            Obx(() => buildHeader(controller.user.value?.name, context, theme)),
+            Obx(() => buildHeader(controller.user.value!.name, theme)),
             const SizedBox(height: 32),
 
             // Quick Stats Cards
@@ -34,9 +35,7 @@ class HomePage extends StatelessWidget {
                 // Left Column
                 Expanded(
                   flex: 2,
-                  child: Column(
-                    children: [buildRecentActivity(context, theme)],
-                  ),
+                  child: Column(children: [buildRecentActivity(theme)]),
                 ),
                 const SizedBox(width: 24),
 
