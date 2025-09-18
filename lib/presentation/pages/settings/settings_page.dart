@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:the_magnificent_three/core/constants/app_constraints.dart';
+import 'package:the_magnificent_three/core/theme/app_gradients.dart';
 import 'package:the_magnificent_three/presentation/controllers/settings/settings_controll.dart';
 import 'package:the_magnificent_three/presentation/pages/auth/auth_page.dart';
 
@@ -33,7 +34,9 @@ class SettingsPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Colors.blue.shade50, Colors.blue.shade100],
+                    colors:
+                        theme.extension<AppGradients>()?.primary ??
+                        [Colors.amber],
                   ),
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
@@ -48,9 +51,9 @@ class SettingsPage extends StatelessWidget {
                 child: Row(
                   children: [
                     // صورة المستخدم
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 70,
-                      backgroundColor: Colors.blue,
+                      backgroundColor: theme.colorScheme.background,
                       backgroundImage: null, // ضع صورة المستخدم هنا
                     ),
                     const SizedBox(width: 20),
@@ -64,7 +67,7 @@ class SettingsPage extends StatelessWidget {
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              color: Colors.black87,
+                              color: theme.colorScheme.onPrimaryContainer,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -73,14 +76,14 @@ class SettingsPage extends StatelessWidget {
                               Icon(
                                 Icons.email_outlined,
                                 size: 18,
-                                color: Colors.grey.shade700,
+                                color: theme.colorScheme.onPrimaryContainer,
                               ),
                               const SizedBox(width: 6),
                               Expanded(
                                 child: Text(
                                   controller.user.value!.email,
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: Colors.grey.shade700,
+                                    color: theme.colorScheme.onPrimaryContainer,
                                     fontSize: 16,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -111,9 +114,7 @@ class SettingsPage extends StatelessWidget {
                   icon: Icons.light_mode_outlined,
                   title: "Dark Mode",
                   value: controller.isDarkMode,
-                  onChanged: (v) {
-                    controller.isDarkMode.value = !controller.isDarkMode.value;
-                  },
+                  onChanged: (_) => controller.toggleTheme(),
                 ),
               ),
 

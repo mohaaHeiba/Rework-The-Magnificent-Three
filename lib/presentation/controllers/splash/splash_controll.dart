@@ -6,6 +6,7 @@ import 'package:the_magnificent_three/presentation/pages/auth/auth_page.dart';
 class SplashControll extends GetxController {
   final opacity = 0.0.obs;
   final boxStorage = GetStorage().read('loginBefore') ?? false;
+
   @override
   void onInit() {
     super.onInit();
