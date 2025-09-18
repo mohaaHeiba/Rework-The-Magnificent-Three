@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:the_magnificent_three/core/controller/init_database.dart';
 import 'package:the_magnificent_three/domain/entities/auth_entity.dart';
+import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
+import 'package:the_magnificent_three/presentation/controllers/settings/settings_controll.dart';
 
 class AuthController extends GetxController {
   final contName = TextEditingController();
@@ -35,11 +37,10 @@ class AuthController extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
-    contName.dispose;
-    contEmail.dispose;
-    contPass.dispose;
-    contEntry.dispose;
+    contName.dispose();
+    contEmail.dispose();
+    contPass.dispose();
+    contEntry.dispose();
     super.onClose();
   }
 
@@ -67,6 +68,7 @@ class AuthController extends GetxController {
 
       if (id != null) {
         print('✅ Success, inserted with id: $id');
+        Get.lazyPut(() => HomeControll());
       } else {
         print('⚠️ Failed to insert');
       }

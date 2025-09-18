@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:the_magnificent_three/core/constants/app_constraints.dart';
-import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
+import 'package:the_magnificent_three/presentation/controllers/settings/settings_controll.dart';
+import 'package:the_magnificent_three/presentation/pages/auth/auth_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -9,7 +11,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final controller = Get.find<HomeControll>();
+    final controller = Get.find<SettingsControll>();
 
     return Container(
       decoration: BoxDecoration(
@@ -104,18 +106,17 @@ class SettingsPage extends StatelessWidget {
 
               _buildInfoTile(icon: Icons.edit, title: "Edit  Email"),
 
-              _buildSwitchTile(
-                icon: Icons.light_mode_outlined,
-                title: "Dark Mode",
-                value: false,
-                onChanged: (v) {},
+              Obx(
+                () => _buildSwitchTile(
+                  icon: Icons.light_mode_outlined,
+                  title: "Dark Mode",
+                  value: controller.isDarkMode,
+                  onChanged: (v) {
+                    controller.isDarkMode.value = !controller.isDarkMode.value;
+                  },
+                ),
               ),
-              _buildSwitchTile(
-                icon: Icons.notifications_none,
-                title: "Notifications",
-                value: true,
-                onChanged: (v) {},
-              ),
+
               _buildInfoTile(
                 icon: Icons.info_outline,
                 title: "App Version",
@@ -138,7 +139,38 @@ class SettingsPage extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.clear, color: Colors.red),
                 title: const Text("Clear", style: TextStyle(color: Colors.red)),
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text("this will be remove all data"),
+                      content: Text('Are u sura about that'),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('cancel'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            GetStorage().erase();
+                            await controller.deleteData();
+                            Get.offAll(AuthPage());
+                            Get.delete<SettingsControll>();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          child: Text('clear'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -150,14 +182,14 @@ class SettingsPage extends StatelessWidget {
   Widget _buildSwitchTile({
     required IconData icon,
     required String title,
-    required bool value,
+    required RxBool value,
     required ValueChanged<bool> onChanged,
   }) {
     return ListTile(
       leading: Icon(icon, color: Colors.blue),
       title: Text(title),
       trailing: Switch(
-        value: value,
+        value: value.value,
         onChanged: onChanged,
         activeColor: Colors.blue,
       ),

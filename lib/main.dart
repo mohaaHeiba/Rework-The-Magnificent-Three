@@ -6,6 +6,7 @@ import 'package:the_magnificent_three/core/controller/init_database.dart';
 import 'package:the_magnificent_three/core/side_navigation/controller/side_navigation_controll.dart';
 import 'package:the_magnificent_three/presentation/controllers/auth/auth_controll.dart';
 import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
+import 'package:the_magnificent_three/presentation/controllers/settings/settings_controll.dart';
 import 'package:the_magnificent_three/presentation/controllers/splash/splash_controll.dart';
 
 Future<void> main() async {
@@ -19,7 +20,8 @@ Future<void> main() async {
   Get.put(SplashControll(), permanent: true);
   Get.put(SidenavigationControll(), permanent: true);
 
-  Get.put(AuthController());
+  Get.put(AuthController(), permanent: true);
   Get.lazyPut(() => HomeControll());
+
   runApp(const MyApp());
 }
