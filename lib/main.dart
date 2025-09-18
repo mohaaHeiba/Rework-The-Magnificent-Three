@@ -7,6 +7,7 @@ import 'package:the_magnificent_three/core/side_navigation/controller/side_navig
 import 'package:the_magnificent_three/presentation/controllers/auth/auth_controll.dart';
 import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
 import 'package:the_magnificent_three/presentation/controllers/splash/splash_controll.dart';
+import 'package:the_magnificent_three/presentation/pages/detection/detection_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,7 @@ Future<void> main() async {
 
   Get.put(AuthController(), permanent: true);
   Get.lazyPut(() => HomeControll());
+  Get.put(DetectionController(), permanent: true);
 
   runApp(const MyApp());
 }

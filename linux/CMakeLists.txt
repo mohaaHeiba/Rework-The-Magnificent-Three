@@ -126,3 +126,7 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "Debug")
   install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
     COMPONENT Runtime)
 endif()
+# get tf lite binaries
+# === Copy TensorFlow Lite shared library ===
+set(TFLITE_LIB "${CMAKE_CURRENT_SOURCE_DIR}/blobs/libtensorflowlite_c-linux.so")
+install(FILES "${TFLITE_LIB}" DESTINATION "${CMAKE_INSTALL_PREFIX}/blobs")

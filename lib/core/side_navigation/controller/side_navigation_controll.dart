@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:the_magnificent_three/presentation/pages/detection/detaction_page.dart';
 import 'package:the_magnificent_three/presentation/pages/home/home_page.dart';
 import 'package:the_magnificent_three/presentation/pages/settings/settings_page.dart';
 
@@ -7,7 +8,7 @@ class SidenavigationControll extends GetxController {
   final index = 0.obs;
   final isCollapsed = true.obs;
 
-  final screens = [HomePage(), Center(), Center(), SettingsPage()];
+  final screens = [HomePage(), DetectionPage(), Center(), SettingsPage()];
 
   void changeIndex(int i) {
     index.value = i;
