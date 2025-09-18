@@ -1,47 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
 
 Widget buildRecentActivity(ThemeData theme) {
+  final controller = Get.find<HomeControll>();
+
+  // Refresh data when widget is built
+  controller.loadHistoryData();
+
   return Container(
-    padding: const EdgeInsets.all(24),
+    padding: const EdgeInsets.only(top: 24, bottom: 12, right: 24, left: 24),
     decoration: BoxDecoration(
-      color: theme.colorScheme.primaryContainer,
-      borderRadius: BorderRadius.circular(16),
+      color: theme.cardColor,
+      borderRadius: BorderRadius.circular(12),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.3),
+          color: Colors.black.withOpacity(0.05),
           blurRadius: 8,
-          offset: const Offset(0, 4),
+          offset: const Offset(0, 2),
         ),
       ],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Recent Activity",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: theme.colorScheme.onPrimaryContainer,
-              ),
-            ),
-            TextButton(onPressed: () {}, child: const Text("View All")),
-          ],
-        ),
-        const SizedBox(height: 20),
-        ...List.generate(
-          4,
-          (index) => buildActivityItem(
-            "Patient #${1000 + index}",
-            "MRI scan analyzed - ${index % 2 == 0 ? 'Negative' : 'Requires review'}",
-            "${2 + index}h ago",
-            index % 2 == 0 ? Colors.green : Colors.orange,
-            theme,
+        Text(
+          'Recent Activity',
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 10),
+        Obx(() {
+          if (controller.recentPatients.isEmpty) {
+            return const Center(child: Text('No recent activity'));
+          }
+
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            // Update to use actual length of recentPatients
+            itemCount: 4,
+            separatorBuilder: (context, index) => const SizedBox(),
+            itemBuilder: (context, index) {
+              final patient = controller.recentPatients[index];
+              final isNormal = patient.detected.toLowerCase() == 'notumor';
+
+              return ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: isNormal
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.red.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    isNormal ? Icons.check_circle : Icons.warning,
+                    color: isNormal ? Colors.green : Colors.red,
+                  ),
+                ),
+                title: Text(patient.name, style: TextStyle(fontSize: 16)),
+                subtitle: Text(
+                  patient.detected,
+                  style: TextStyle(fontSize: 14),
+                ),
+                trailing: Text(
+                  '${(patient.confidence).toStringAsFixed(1)}%',
+                  style: TextStyle(
+                    color: isNormal ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            },
+          );
+        }),
       ],
     ),
   );

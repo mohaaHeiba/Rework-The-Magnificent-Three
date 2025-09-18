@@ -74,6 +74,8 @@ class _$UserDatabase extends UserDatabase {
 
   AuthDao? _authdaoInstance;
 
+  PatientDao? _patientdoaInstance;
+
   Future<sqflite.Database> open(
     String path,
     List<Migration> migrations, [
@@ -97,6 +99,8 @@ class _$UserDatabase extends UserDatabase {
       onCreate: (database, version) async {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `auth` (`id` INTEGER, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `pass` TEXT NOT NULL, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `patients` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `detected` TEXT NOT NULL, `pathimage` TEXT NOT NULL, `confidence` REAL NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -107,6 +111,11 @@ class _$UserDatabase extends UserDatabase {
   @override
   AuthDao get authdao {
     return _authdaoInstance ??= _$AuthDao(database, changeListener);
+  }
+
+  @override
+  PatientDao get patientdoa {
+    return _patientdoaInstance ??= _$PatientDao(database, changeListener);
   }
 }
 
@@ -181,5 +190,69 @@ class _$AuthDao extends AuthDao {
   @override
   Future<int> deleteAuth(AuthEntity authentity) {
     return _authEntityDeletionAdapter.deleteAndReturnChangedRows(authentity);
+  }
+}
+
+class _$PatientDao extends PatientDao {
+  _$PatientDao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _patientEntityInsertionAdapter = InsertionAdapter(
+            database,
+            'patients',
+            (PatientEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'detected': item.detected,
+                  'pathimage': item.pathimage,
+                  'confidence': item.confidence
+                }),
+        _patientEntityDeletionAdapter = DeletionAdapter(
+            database,
+            'patients',
+            ['id'],
+            (PatientEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'name': item.name,
+                  'detected': item.detected,
+                  'pathimage': item.pathimage,
+                  'confidence': item.confidence
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<PatientEntity> _patientEntityInsertionAdapter;
+
+  final DeletionAdapter<PatientEntity> _patientEntityDeletionAdapter;
+
+  @override
+  Future<void> deleteAllPatients() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM patients');
+  }
+
+  @override
+  Future<List<PatientEntity>> getPatients() async {
+    return _queryAdapter.queryList('SELECT * FROM patients',
+        mapper: (Map<String, Object?> row) => PatientEntity(row['id'] as int?,
+            name: row['name'] as String,
+            detected: row['detected'] as String,
+            pathimage: row['pathimage'] as String,
+            confidence: row['confidence'] as double));
+  }
+
+  @override
+  Future<int> insertPatients(PatientEntity patient) {
+    return _patientEntityInsertionAdapter.insertAndReturnId(
+        patient, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<int> deletePatients(PatientEntity patient) {
+    return _patientEntityDeletionAdapter.deleteAndReturnChangedRows(patient);
   }
 }

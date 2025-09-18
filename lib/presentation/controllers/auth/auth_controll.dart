@@ -33,6 +33,7 @@ class AuthController extends GetxController {
     super.onInit();
     _db = Get.find<InitDatabase>();
     // deleteUser();
+    // GetStorage().erase();
   }
 
   @override

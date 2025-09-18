@@ -1,48 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
 
 Widget buildQuickStats(ThemeData theme) {
-  return Row(
-    children: [
-      Expanded(
-        child: _buildStatCard(
-          "Total Scans",
-          "1,247",
-          Icons.scanner_rounded,
-          Colors.blue,
-          theme,
+  final controller = Get.find<HomeControll>();
+
+  return Obx(
+    () => Row(
+      children: [
+        Expanded(
+          child: _buildStatCard(
+            'Total Scans',
+            controller.totalScans.toString(),
+            Icons.analytics,
+            Colors.blue,
+            theme,
+          ),
         ),
-      ),
-      const SizedBox(width: 16),
-      Expanded(
-        child: _buildStatCard(
-          "Positive Cases",
-          "89",
-          Icons.warning_rounded,
-          Colors.orange,
-          theme,
+        const SizedBox(width: 16),
+        Expanded(
+          child: _buildStatCard(
+            'Normal Cases',
+            controller.normalCount.toString(),
+            Icons.check_circle,
+            Colors.green,
+            theme,
+          ),
         ),
-      ),
-      const SizedBox(width: 16),
-      Expanded(
-        child: _buildStatCard(
-          "Accuracy Rate",
-          "94.2%",
-          Icons.check_circle_rounded,
-          Colors.green,
-          theme,
+        const SizedBox(width: 16),
+        Expanded(
+          child: _buildStatCard(
+            'Abnormal Cases',
+            controller.abnormalCount.toString(),
+            Icons.warning,
+            Colors.red,
+            theme,
+          ),
         ),
-      ),
-      const SizedBox(width: 16),
-      Expanded(
-        child: _buildStatCard(
-          "Pending Reviews",
-          "23",
-          Icons.pending_actions_rounded,
-          Colors.purple,
-          theme,
+        const SizedBox(width: 16),
+
+        Expanded(
+          child: _buildStatCard(
+            "Accuracy Rate",
+            "94.2%",
+            Icons.check_circle_rounded,
+            Colors.green,
+            theme,
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 

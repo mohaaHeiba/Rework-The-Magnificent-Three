@@ -2,14 +2,25 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:the_magnificent_three/core/theme/app_gradients.dart';
 import 'package:the_magnificent_three/data/service/detection_service.dart';
+import 'package:the_magnificent_three/data/datasources/patient_dao.dart';
+import 'package:the_magnificent_three/domain/entities/patient_entity.dart';
+import 'package:the_magnificent_three/presentation/controllers/home/home_controll.dart';
+import 'package:the_magnificent_three/presentation/pages/history/history_controller.dart';
 
 class DetectionController extends GetxController {
   final Rx<File?> selectedImage = Rx<File?>(null);
   final isAnalyzing = false.obs;
   final TextEditingController patientController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+
+  // Add DAO field
+  final PatientDao patientDao;
+
+  // Modify constructor to accept DAO
+  DetectionController({required this.patientDao});
 
   Future<void> pickImage() async {
     try {
@@ -431,8 +442,11 @@ class DetectionController extends GetxController {
                             const SizedBox(width: 12),
 
                             FilledButton.icon(
-                              onPressed: () =>
-                                  _handleSaveRecord(noteController),
+                              onPressed: () => _handleSaveRecord(
+                                noteController,
+                                idx: idx,
+                                confidence: confidence,
+                              ),
                               icon: const Icon(Icons.save_rounded, size: 20),
                               label: const Text('Save Record'),
                               style: FilledButton.styleFrom(
@@ -579,32 +593,63 @@ class DetectionController extends GetxController {
     return 'Low';
   }
 
-  void _handleSaveRecord(TextEditingController noteController) {
-    // Show loading state
-    Get.back(); // Close dialog first
+  Future<void> _handleSaveRecord(
+    TextEditingController noteController, {
+    required int idx,
+    required double confidence,
+  }) async {
+    try {
+      // Create PatientEntity object
+      final patient = PatientEntity(
+        null,
+        name: patientController.text.trim().isNotEmpty
+            ? patientController.text.trim()
+            : 'Unknown Patient',
 
-    // Show success feedback
-    Get.snackbar(
-      "Success",
-      "Analysis record saved successfully",
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.green.shade600,
-      colorText: Colors.white,
-      icon: const Icon(Icons.check_circle, color: Colors.white),
-      duration: const Duration(seconds: 3),
-    );
+        detected: detectionService.classes[idx],
+        pathimage: selectedImage.value?.path ?? '',
+        confidence: confidence,
+      );
 
-    noteController.dispose();
+      // Insert into database
+      await patientDao.insertPatients(patient);
 
-    // TODO: Implement actual save logic here
-    // await saveAnalysisRecord({
-    //   'patientName': patientName,
-    //   'resultClass': resultClass,
-    //   'confidence': confidence,
-    //   'notes': noteController.text,
-    //   'timestamp': DateTime.now(),
-    //   'imagePath': selectedImage.value?.path,
-    // });
+      // Close dialog first
+      Get.back();
+
+      // Refresh both history and home controllers
+      if (Get.isRegistered<HistoryController>()) {
+        final historyController = Get.find<HistoryController>();
+        await historyController.refreshPatients();
+      }
+
+      // Refresh home page data
+      if (Get.isRegistered<HomeControll>()) {
+        final homeController = Get.find<HomeControll>();
+        await homeController.loadHistoryData();
+      }
+
+      // Show success feedback
+      Get.snackbar(
+        "Success",
+        "Patient record saved successfully",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green.shade600,
+        colorText: Colors.white,
+        icon: const Icon(Icons.check_circle, color: Colors.white),
+        duration: const Duration(seconds: 3),
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        "Failed to save patient record: $e",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      noteController.dispose();
+    }
   }
 
   // Updated Helper widget to build the information cards.
@@ -623,9 +668,9 @@ class DetectionController extends GetxController {
         color: color,
         borderRadius: BorderRadius.circular(15), // Slightly more rounded cards
         border: Border.all(
-          color: color.withOpacity(0.5),
+          color: color.withOpacity(0.5), // Subtle border
           width: 1,
-        ), // Subtle border
+        ),
       ),
       child: Row(
         children: [
@@ -691,6 +736,7 @@ class DetectionController extends GetxController {
   }
 
   late final DetectionService detectionService;
+
   @override
   void onInit() {
     super.onInit();

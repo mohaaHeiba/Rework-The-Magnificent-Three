@@ -112,7 +112,7 @@ Widget rightSideWidget(BuildContext context) {
                         final user = await controller.inserUser();
                         if (user != null) {
                           controller.boxStorage.write('loginBefore', true);
-                          Get.to(
+                          Get.off(
                             () => const SideNavigation(),
                             transition: Transition.fadeIn,
                             duration: Duration(milliseconds: 800),

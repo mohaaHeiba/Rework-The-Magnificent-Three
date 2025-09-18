@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:the_magnificent_three/core/constants/app_constraints.dart';
 import 'package:the_magnificent_three/core/theme/app_gradients.dart';
+import 'package:the_magnificent_three/data/datasources/patient_dao.dart';
 import 'package:the_magnificent_three/presentation/controllers/settings/settings_controll.dart';
 import 'package:the_magnificent_three/presentation/pages/auth/auth_page.dart';
+import 'package:the_magnificent_three/core/controller/init_database.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -41,8 +43,7 @@ class SettingsPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.08),
-                      blurRadius: 12,
+                      color: Colors.black.withOpacity(0.2),
                       offset: const Offset(0, 6),
                     ),
                   ],
@@ -107,8 +108,6 @@ class SettingsPage extends StatelessWidget {
               ),
               AppSpacing.h16,
 
-              _buildInfoTile(icon: Icons.edit, title: "Edit  Email"),
-
               Obx(
                 () => _buildSwitchTile(
                   icon: Icons.light_mode_outlined,
@@ -144,29 +143,61 @@ class SettingsPage extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: Text("this will be remove all data"),
-                      content: Text('Are u sura about that'),
+                      title: const Text("Clear All Data"),
+                      content: const Text(
+                        'This will remove all patient records. Are you sure you want to continue?',
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       actions: [
                         TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('cancel'),
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Cancel'),
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            GetStorage().erase();
-                            await controller.deleteData();
-                            Get.offAll(AuthPage());
-                            Get.delete<SettingsControll>();
+                            try {
+                              // Get PatientDao instance
+                              final patientDao =
+                                  Get.find<InitDatabase>().patientdao;
+
+                              // Clear storage and patient data
+                              await GetStorage().erase();
+                              await patientDao.deleteAllPatients();
+
+                              // Clear controller data
+                              await controller.deleteData();
+
+                              // Navigate to auth page and remove settings controller
+                              Get.offAll(() => const AuthPage());
+                              Get.delete<SettingsControll>();
+
+                              // Show success message
+                              Get.snackbar(
+                                'Success',
+                                'All data has been cleared',
+                                snackPosition: SnackPosition.TOP,
+                                backgroundColor: Colors.green,
+                                colorText: Colors.white,
+                              );
+                            } catch (e) {
+                              // Show error message
+                              print(e);
+                              Get.snackbar(
+                                'Error',
+                                'Failed to clear data: $e',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
                           ),
-                          child: Text('clear'),
+                          child: const Text('Clear'),
                         ),
                       ],
                     ),
